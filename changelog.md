@@ -46,6 +46,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - tirando redundancias:
     - tirando a redundancia existente ao revelar e esconder informações. Problema resolvido com a criação de uma nova função. func reveladorDeInformacoes(bool,Object,table=false);
 
-## Changed
+### Changed
 - main.js
 - changelog.md
+
+## [0.1.2] - 2024-03-23
+### Commit Adequação de termos.
+- Adequando os termos utilizados para os termos solicitados na atividade.
+    - modificação de adicionar para cadastrar.
+
+### Changed
+- changelog.md
+- index.html
