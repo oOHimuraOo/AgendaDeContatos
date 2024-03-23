@@ -33,3 +33,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - modoLista.html
 - main.js
 - main.css
+
+## [0.1.0] - 2024-03-22
+### Initial Commit
+- Primeiro commit, aplicação funcional. Codigo precisará ser analisado posteriormente devido a bugs e redundancias.
+
+## [0.1.1] - 2024-03-23
+### Commit Bug Fix
+- Resolvendo alguns bugs:
+    - bug na validação de numero repetido quando no modo lista.
+    - bug na funcionalidade de pesquisa, onde só localizava palavras inteiras.
+- tirando redundancias:
+    - tirando a redundancia existente ao revelar e esconder informações. Problema resolvido com a criação de uma nova função. func reveladorDeInformacoes(bool,Object,table=false);
+
+## Changed
+- main.js
+- changelog.md

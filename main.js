@@ -39,40 +39,23 @@ if (localStorage.getItem('contatos') !== null){
     }
 }
 
-
 // eventos ---------------------------------------------------------------
-
 listaContatos.addEventListener("click",function(){
-    escondedor1.classList.remove('hidden')
-    escondedor1.classList.add('shown')
-
-    escondedor2.classList.remove('shown')
-    escondedor2.classList.add('hidden')
-
-    escondedor3.classList.remove('shown')
-    escondedor3.classList.add('hidden')
+    reveladorDeInformacoes(true,escondedor1)
+    reveladorDeInformacoes(false,escondedor2)
+    reveladorDeInformacoes(false,escondedor3)
 })
 
 addContato.addEventListener("click",function(){
-    escondedor1.classList.remove('hidden')
-    escondedor1.classList.add('shown')
-
-    escondedor2.classList.remove('hidden')
-    escondedor2.classList.add('shown')
-
-    escondedor3.classList.remove('shown')
-    escondedor3.classList.add('hidden')
+    reveladorDeInformacoes(true,escondedor1)
+    reveladorDeInformacoes(true,escondedor2)
+    reveladorDeInformacoes(false,escondedor3)
 })
 
 config.addEventListener("click",function(){
-    escondedor1.classList.remove('shown')
-    escondedor1.classList.add('hidden')
-
-    escondedor2.classList.remove('shown')
-    escondedor2.classList.add('hidden')
-
-    escondedor3.classList.remove('hidden')
-    escondedor3.classList.add('shown')
+    reveladorDeInformacoes(false,escondedor1)
+    reveladorDeInformacoes(false,escondedor2)
+    reveladorDeInformacoes(true,escondedor3)
 })
 
 formAddContato.addEventListener("submit", function(e){
@@ -141,6 +124,28 @@ limparTudo.addEventListener("click", function(e){
 })
 
 //funções --------------------------------------------------------
+function reveladorDeInformacoes(bool,Object,table=false){
+    if (!table){
+        if (bool){
+            Object.classList.remove('hidden')
+            Object.classList.add('shown')
+        }
+        else{
+            Object.classList.remove('shown')
+            Object.classList.add('hidden')
+        }
+    }
+    else{
+        if (bool){
+            Object.classList.remove('hidden')
+            Object.classList.add('shownTable')
+        }
+        else{
+            Object.classList.remove('shownTable')
+            Object.classList.add('hidden')
+        }
+    }
+}
 
 function addLinha(){
     if (nomes.includes(inputNome.value)) {
@@ -154,7 +159,7 @@ function addLinha(){
             nomes.push(inputNome.value)
             numeros.push(inputNumero.value)
     
-            var linha = '<tr class="contato">'
+            var linha = '<tr class="contato">' //apesar dessa variavel não ser necessaria. Para facilitar leitura posterior, vou mante-la.
             linha += `<td>${inputNome.value}</td>`
             linha += `<td>${inputNumero.value}</td>`
             linha += '</tr>'
@@ -189,37 +194,39 @@ function attContadorFinal(){
 
 function localizarContato(){
     if (procurar.value === '') {
-        limparPesquisa()
+        limparPesquisa();
+        return; 
     }
-    else{
-        if (nomes.includes(procurar.value)){
-            for (var i = 0; i < nomes.length; i++){
-                if (nomes[i] === procurar.value){
-                    contatos[i].classList.remove('hidden')
-                    contatos[i].classList.add('shownTable')
-                }
-                else{
-                    contatos[i].classList.remove('shownTable')
-                    contatos[i].classList.add('hidden')
-                }
+    
+    const searchTerm = procurar.value.toLowerCase();
+    
+    for (var i = 0; i < nomes.length; i++) {
+        const currentName = nomes[i].toLowerCase();
+        
+        let matchFound = false;
+        
+        for (var j = 0; j < searchTerm.length; j++) {
+            if (currentName.includes(searchTerm[j])) {
+                matchFound = true;
+            } else {
+                matchFound = false;
+                break;
             }
         }
-        else{
-            alert('Nome ainda não registrado na agenda')
-        }
+        
+            reveladorDeInformacoes(matchFound, contatos[i], true);
     }
-
-    procurar.value = ''
+    
+    procurar.value = '';
 }
 
 function limparPesquisa(){
     for (var i = 0; i < nomes.length; i++){
-        contatos[i].classList.remove('hidden')
-        contatos[i].classList.remove('shownTable')
+        reveladorDeInformacoes(true,contatos[i],true)
     }
 }
 
-function formatarTelefone(event) {
+function formatarTelefone(event) { //essa função tá meio confusa tenho que pensar em como melhorar ela.
     var telefone = inputNumero.value;
     
     telefone = telefone.replace(/\D/g, '');
@@ -253,16 +260,16 @@ function addItem (){
         alert('Nome já incluso na Agenda de contatos')
     }
     else {
-        if (nomesLista.includes(inputNumero.value)){
+        if (numerosLista.includes(inputNumero.value)){
             alert('Numero já incluso na Agenda de contatos')
         }
         else {
             nomesLista.push(inputNome.value)
             numerosLista.push(inputNumero.value)
     
-            var item = `<div class="organizadora2">`
+            var item = `<div class="contato organizadora2">` //apesar dessa variavel não ser necessaria. Para facilitar leitura posterior, vou mante-la.
             item += `<img id="imagemnalista" src="./Images/perfil.png" alt="imagem de perfil padrão">`
-            item += `<ul class="contato">`
+            item += `<ul>`
             item += `<li id="nomenalista">${inputNome.value}</li>`
             item += `<li id="numeronalista">${inputNumero.value}</li>`
             item += `</ul>`
@@ -290,33 +297,34 @@ function attList(){
 
 function localizarContatoLista(){
     if (procurar.value === '') {
-        limparPesquisaLista()
+        limparPesquisa();
+        return; 
     }
-    else{
-        if (nomesLista.includes(procurar.value)){
-            for (var i = 0; i < nomesLista.length; i++){
-                if (nomesLista[i] === procurar.value){
-                    contatosLista[i].classList.remove('hidden')
-                    contatosLista[i].classList.add('shown')
-                }
-                else{
-                    contatosLista[i].classList.remove('shown')
-                    contatosLista[i].classList.add('hidden')
-                }
+    
+    const searchTerm = procurar.value.toLowerCase();
+    
+    for (var i = 0; i < nomesLista.length; i++) {
+        const currentName = nomesLista[i].toLowerCase();
+        
+        let matchFound = false;
+        
+        for (var j = 0; j < searchTerm.length; j++) {
+            if (currentName.includes(searchTerm[j])) {
+                matchFound = true;
+            } else {
+                matchFound = false;
+                break;
             }
         }
-        else{
-            alert('Nome ainda não registrado na agenda')
-        }
+            reveladorDeInformacoes(matchFound, contatosLista[i]);
     }
-
-    procurar.value = ''
+    
+    procurar.value = '';
 }
 
 function limparPesquisaLista(){
     for (var i = 0; i < nomesLista.length; i++){
-        contatosLista[i].classList.remove('hidden')
-        contatosLista[i].classList.remove('shown')
+        reveladorDeInformacoes(true,contatosLista[i])
     }
 }
 
@@ -328,7 +336,7 @@ function sincronizarInformacoesEntreAgendas() {
         linhas = '';
 
         for (var i = 0; i < nomes.length; i++) {
-            var linha = '<tr class="contato">'
+            var linha = '<tr class="contato">' //apesar dessa variavel não ser necessaria. Para facilitar leitura posterior, vou mante-la.
             linha += `<td>${nomes[i]}</td>`
             linha += `<td>${numeros[i]}</td>`
             linha += '</tr>'
@@ -347,9 +355,9 @@ function sincronizarInformacoesEntreAgendas() {
 
         for (var i = 0; i < nomesLista.length; i++) {
 
-            var item = `<div class="organizadora2">`
+            var item = `<div class="contato organizadora2">` //apesar dessa variavel não ser necessaria. Para facilitar leitura posterior, vou mante-la.
             item += `<img id="imagemnalista" src="./Images/perfil.png" alt="imagem de perfil padrão">`
-            item += `<ul class="contato">`
+            item += `<ul>`
             item += `<li id="nomenalista">${nomesLista[i]}</li>`
             item += `<li id="numeronalista">${numerosLista[i]}</li>`
             item += `</ul>`
