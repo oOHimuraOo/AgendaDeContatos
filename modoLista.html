@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tauri&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                Agenda de Contatos
+            </h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#ListaDeContatos" id="lisContatos"><img src="./Images/contatos.png" alt="Lista de Contatos" title="Irá exibir a lista de contatos completa"></a> <!-- esse botão vai esconder o menu de adicionar contato.-->
+                    </li>
+                    <li>
+                        <a href="#addcontato" id="addContato"><img src="./Images/ContatosAdd.png" alt="Novo Contatos" title="Irá revelar o formulario para adicionar um novo contato"></a> <!-- esse botão vai revelar o menu de adicionar contatos.-->
+                    </li>
+                    <li>
+                        <a href="#Configurações" id="config"><img src="./Images/config.png" alt="Configuracoes" title="Irá revelar as configuracoes basicas da Agenda"></a> <!-- esse botão esconde tudo e revela apenas as configurações-->
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h2>
+                Contatos
+            </h2>
+            <div class="shown" id="escondedor2">
+                <form id="formAddContato">
+                    <input type="text" placeholder="Nome Completo" title="Exemplo: Candolina Rosa" required id="nome">
+                    <input type="tel" placeholder="Telefone" title="Exemplo: 123 4567-8901" required id="numero" >
+                    <button type="submit" title="Irá adicionar um novo contato a lista de contatos">Adicionar</button>
+                </form>
+            </div>
+            <div class="shown" id="escondedor1">
+                <form id="formProcContato">
+                    <input type="text" placeholder="Pesquisar Contato" title="Exemplo: Fernando Souza" id="procurar">
+                    <button type="submit" title="Irá procurar um nome que corresponda exatamente ao digitado.">Pesquisar</button>
+                    <button type="reset" title="Irá retirar todos os filtros de pesquisa">Limpar</button>
+                </form>
+                
+                <nav id="lista">
+                </nav>
+            </div>
+            <div class="hidden" id="escondedor3">
+                <div class="organizador">
+                    <label for="idiomas">Selecione o idioma:</label>
+                    <select name="idiomas" id="idiomas">
+                        <option value="0">Português</option>
+                        <option value="1">English</option>
+                        <option value="2">Español</option>
+                    </select>
+                    <label for="estilo">Selecione o Estilo</label>
+                    <select name="estilo" id="estilo">
+                        <option value="1">Modo Lista</option>
+                        <option value="0">Modo Tabela</option>
+                    </select>
+                    <form>
+                        <button type="submit" id="limparTUDO">
+                            limpar lista de contatos
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="./main.js"></script>
+</body>
+</html>
